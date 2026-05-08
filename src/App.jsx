@@ -273,9 +273,7 @@ export default function App() {
       setStreak(s => s + 1)
       fireConfetti()
     } else {
-      // streak does NOT break on wrong answers per requirements;
-      // the user just retries. Comment out the next line to keep streak.
-      // setStreak(0)
+      setStreak(0)
     }
   }
 
