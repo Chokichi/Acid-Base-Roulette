@@ -2,7 +2,8 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   DndContext,
   DragOverlay,
-  PointerSensor,
+  MouseSensor,
+  TouchSensor,
   useDraggable,
   useDroppable,
   useSensor,
@@ -183,7 +184,14 @@ export default function App() {
   const placedRoles = useMemo(() => new Set(Object.values(placements)), [placements])
   const allFilled = ROLE_KEYS.every(r => placedRoles.has(r))
 
-  const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 4 } }))
+  const sensors = useSensors(
+    // Mouse: small movement starts the drag immediately.
+    useSensor(MouseSensor, { activationConstraint: { distance: 4 } }),
+    // Touch: short hold-to-activate so a quick swipe still scrolls the page.
+    // Without this, iOS Safari races the scroll vs. drag gesture and the drag
+    // is intermittent in landscape where the page is taller than the viewport.
+    useSensor(TouchSensor, { activationConstraint: { delay: 180, tolerance: 8 } }),
+  )
 
   function handleDragStart(event) {
     setActiveRole(event.active.data.current?.role ?? null)

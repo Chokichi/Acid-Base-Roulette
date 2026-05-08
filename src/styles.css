@@ -158,6 +158,16 @@ h1 {
 .label.dragging {
   transform: scale(1.05) rotate(-1.5deg);
   box-shadow: 0 12px 24px #000a, 0 0 0 1px #ffffff22;
+  filter: brightness(0.85);
+}
+/* Immediate press feedback — fires the moment a finger or mouse lands,
+   before dnd-kit's activation constraint kicks in. Lets the user see
+   that the label registered the touch even during the 180ms hold-to-drag
+   window on touch devices. */
+.label:not(.locked):active {
+  filter: brightness(0.7);
+  transform: scale(0.96);
+  box-shadow: 0 1px 3px #0008 inset;
 }
 
 .bank {
