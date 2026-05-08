@@ -30,10 +30,11 @@ function LabelText({ role }) {
 }
 const ROLE_KEYS = ['acid', 'base', 'conjugateAcid', 'conjugateBase']
 
-function Formula({ formula, charge }) {
+function Formula({ formula, charge, coef }) {
   const segments = formulaSegments(formula, charge)
   return (
     <span className="formula">
+      {coef && coef > 1 ? <span className="coef">{coef}</span> : null}
       {segments.map((s, i) => {
         if (s.kind === 'sub') return <sub key={i}>{s.text}</sub>
         if (s.kind === 'sup') return <sup key={i}>{s.text}</sup>
@@ -129,7 +130,7 @@ function SpeciesSlot({ species, slotId, placedRole, status, onRemove }) {
           <span className="drop-hint">drop label</span>
         )}
       </div>
-      <Formula formula={species.formula} charge={species.charge} />
+      <Formula formula={species.formula} charge={species.charge} coef={species.coef} />
     </div>
   )
 }

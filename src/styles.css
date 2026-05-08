@@ -91,6 +91,11 @@ h1 {
 }
 .formula sub { font-size: 0.65em; vertical-align: -0.2em; }
 .formula sup { font-size: 0.65em; vertical-align: 0.6em; }
+.formula .coef {
+  font-weight: 600;
+  margin-right: 0.18em;
+  color: var(--accent);
+}
 
 .op {
   display: flex;
