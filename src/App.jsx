@@ -12,10 +12,20 @@ import confetti from 'canvas-confetti'
 import { generateReaction, formulaSegments } from './reactions.js'
 
 const ROLE_LABELS = {
-  acid:           { text: 'Acid',            color: '#ef4444' },
-  base:           { text: 'Base',            color: '#3b82f6' },
-  conjugateAcid:  { text: 'Conjugate Acid',  color: '#f59e0b' },
-  conjugateBase:  { text: 'Conjugate Base',  color: '#10b981' },
+  acid:           { text: 'Acid',            short: 'Acid',    color: '#ef4444' },
+  base:           { text: 'Base',            short: 'Base',    color: '#3b82f6' },
+  conjugateAcid:  { text: 'Conjugate Acid',  short: 'C. Acid', color: '#f59e0b' },
+  conjugateBase:  { text: 'Conjugate Base',  short: 'C. Base', color: '#10b981' },
+}
+
+function LabelText({ role }) {
+  const meta = ROLE_LABELS[role]
+  return (
+    <>
+      <span className="label-full">{meta.text}</span>
+      <span className="label-short">{meta.short}</span>
+    </>
+  )
 }
 const ROLE_KEYS = ['acid', 'base', 'conjugateAcid', 'conjugateBase']
 
@@ -53,7 +63,7 @@ function DraggableLabel({ id, role, disabled }) {
       {...listeners}
       {...attributes}
     >
-      {meta.text}
+      <LabelText role={role} />
     </div>
   )
 }
@@ -65,7 +75,7 @@ function LabelChip({ role }) {
       className="label dragging"
       style={{ backgroundColor: meta.color, cursor: 'grabbing' }}
     >
-      {meta.text}
+      <LabelText role={role} />
     </div>
   )
 }
@@ -92,7 +102,7 @@ function PlacedLabel({ role, slotId, status, onRemove, locked }) {
       {...listeners}
       {...attributes}
     >
-      {meta.text}
+      <LabelText role={role} />
     </div>
   )
 }
