@@ -190,7 +190,7 @@ export default function App() {
     // Touch: short hold-to-activate so a quick swipe still scrolls the page.
     // Without this, iOS Safari races the scroll vs. drag gesture and the drag
     // is intermittent in landscape where the page is taller than the viewport.
-    useSensor(TouchSensor, { activationConstraint: { delay: 180, tolerance: 8 } }),
+    useSensor(TouchSensor, { activationConstraint: { delay: 80, tolerance: 8 } }),
   )
 
   function handleDragStart(event) {
